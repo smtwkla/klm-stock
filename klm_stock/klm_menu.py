@@ -1,9 +1,10 @@
-M_CMD = "key"
+M_CMD = "cmd"
 M_PROMPT = "prompt"
 M_HOTKEY = "hotkey"
 M_SUBMENU = "submenu"
 
 back_option = {M_CMD: "back", M_PROMPT: "Back...", M_HOTKEY: "b"}
+
 
 def display_menu(menu_dict):
     """
@@ -25,7 +26,7 @@ def display_menu(menu_dict):
     index = 1
     for i in menu_dict["options"]:
         print(f"{index}. {i[M_PROMPT]} ({i[M_HOTKEY]})")
-        index +=1
+        index += 1
     if menu_dict["back_option"]:
         print(f"{index}. {back_option[M_PROMPT]} ({back_option[M_HOTKEY]})")
 
@@ -66,8 +67,8 @@ def present_menu(menu, menu_system):
             menu_name = act.split(":")[1]
             menu = menu_system[menu_name]
         else:
-            return act
-    print(f"you chose {act}")
+            menu_name = menu["name"]
+            return act, menu_name
 
 
 def print_banner(header):
