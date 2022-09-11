@@ -3,7 +3,7 @@ from klm_menu import M_CMD, M_PROMPT, M_HOTKEY, M_SUBMENU
 main_menu = {
     "menu": "Main Menu",
     "options": [
-        {M_CMD: "scripts", M_PROMPT: "Manage Scripts...", M_HOTKEY: "s"},
+        {M_CMD: "menu:scripts", M_PROMPT: "Manage Scripts...", M_HOTKEY: "s"},
         {M_CMD: "menu:analysis", M_PROMPT: "Analysis...", M_HOTKEY: "a"},
         {M_CMD: "menu:transactions", M_PROMPT: "Transactions...", M_HOTKEY: "t"},
         {M_CMD: "exit", M_PROMPT: "Exit App", M_HOTKEY: "x"},
@@ -48,7 +48,7 @@ transactions_menu = {
 
 menu_system = {
     "main_menu": main_menu,
-    "script": script_menu,
+    "scripts": script_menu,
     "analysis": analysis_menu,
     "transactions": transactions_menu
 }
