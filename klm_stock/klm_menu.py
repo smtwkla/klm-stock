@@ -94,6 +94,8 @@ def get_valid_choice_nums(menu):
 
 def get_menu_cmd(menu, inp):
     if type(inp) is str:
+        if inp == back_option[M_HOTKEY] and menu["back_option"]:
+            return "menu:" + menu["back_to"]
         for i in menu["options"]:
             if i[M_HOTKEY] == inp:
                 return i[M_CMD]
