@@ -9,18 +9,19 @@ back_option = {M_CMD: "back", M_PROMPT: "Back...", M_HOTKEY: "b"}
 def display_menu(menu_dict):
     """
      Function to display menu, as described in menu_dict dictionary.
-     Ex : [{"key":"menu1", "prompt":"Menu Choice 1"}]
-
-    main_menu = {
-        "menu": "Main Menu",
-        "options": [
-            {M_CMD: "scripts", M_PROMPT: "Manage Scripts...", M_HOTKEY: "s"},
-            {M_CMD: "analysis", M_PROMPT: "Analysis...", M_HOTKEY: "a"},
-            {M_CMD: "transactions", M_PROMPT: "Transactions...", M_HOTKEY: "p"},
-            {M_CMD: "exit", M_PROMPT: "Exit App", M_HOTKEY: "x"},
-        ],
-        "back_option": False
-    }
+     Ex :
+        scripts_menu = {
+            "menu": "Manage Scripts Menu",
+            "name": "scripts",
+            "options": [
+                {M_CMD: "list_scripts", M_PROMPT: "List Scripts", M_HOTKEY: "l"},
+                {M_CMD: "add_script", M_PROMPT: "Add Script", M_HOTKEY: "a"},
+                {M_CMD: "edit_script", M_PROMPT: "Edit Script", M_HOTKEY: "e"},
+                {M_CMD: "del_script", M_PROMPT: "Delete Script", M_HOTKEY: "d"},
+            ],
+            "back_option": True,
+            "back_to": "main"
+}
     """
     print_banner(menu_dict["menu"])
     index = 1
@@ -71,11 +72,11 @@ def present_menu(menu, menu_system):
             return act, menu_name
 
 
-def print_banner(header):
-    DEC_WIDTH = 25
-    decoration = "*" * DEC_WIDTH
+def print_banner(header, star="*", width=25):
+    """ Prints banner with decoration at top and bottom """
+    decoration = star * width
     print("\n"+decoration)
-    print(header.center(DEC_WIDTH))
+    print(header.center(width))
     print(decoration+"\n")
 
 
