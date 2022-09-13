@@ -1,11 +1,10 @@
 import pprint
 
-M_CMD = "cmd"
-M_PROMPT = "prompt"
-M_HOTKEY = "hotkey"
-M_SUBMENU = "submenu"
+M_CMD = 0
+M_PROMPT = 1
+M_HOTKEY = 2
 
-back_option = {M_CMD: "back", M_PROMPT: "Back...", M_HOTKEY: "b"}
+back_option = ["back", "Back...", "b"]
 
 
 def display_menu(menu_dict):
@@ -16,10 +15,8 @@ def display_menu(menu_dict):
             "menu": "Manage Scripts Menu",
             "name": "scripts",
             "options": [
-                {M_CMD: "list_scripts", M_PROMPT: "List Scripts", M_HOTKEY: "l"},
-                {M_CMD: "add_script", M_PROMPT: "Add Script", M_HOTKEY: "a"},
-                {M_CMD: "edit_script", M_PROMPT: "Edit Script", M_HOTKEY: "e"},
-                {M_CMD: "del_script", M_PROMPT: "Delete Script", M_HOTKEY: "d"},
+                ["list_scripts", "List Scripts", "l"],
+                ["add_script", "Add Script", "a"]
             ],
             "back_option": True,
             "back_to": "main"

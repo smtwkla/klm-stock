@@ -5,10 +5,10 @@ main_menu = {
     "menu": "Main Menu",
     "name": "main",
     "options": [
-        {M_CMD: "menu:scripts", M_PROMPT: "Manage Scripts...", M_HOTKEY: "s"},
-        {M_CMD: "menu:analysis", M_PROMPT: "Analysis...", M_HOTKEY: "a"},
-        {M_CMD: "menu:transactions", M_PROMPT: "Transactions...", M_HOTKEY: "t"},
-        {M_CMD: "exit", M_PROMPT: "Exit App", M_HOTKEY: "x"},
+        ["menu:scripts", "Manage Scripts...", "s"],
+        ["menu:analysis", "Analysis...", "a"],
+        ["menu:transactions", "Transactions...", "t"],
+        ["exit","Exit App","x"],
     ],
     "back_option": False
 }
