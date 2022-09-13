@@ -17,10 +17,10 @@ scripts_menu = {
     "menu": "Manage Scripts Menu",
     "name": "scripts",
     "options": [
-        {M_CMD: "list_scripts", M_PROMPT: "List Scripts", M_HOTKEY: "l"},
-        {M_CMD: "add_script", M_PROMPT: "Add Script", M_HOTKEY: "a"},
-        {M_CMD: "edit_script", M_PROMPT: "Edit Script", M_HOTKEY: "e"},
-        {M_CMD: "del_script", M_PROMPT: "Delete Script", M_HOTKEY: "d"},
+        ["list_scripts","List Scripts","l"],
+        ["add_script","Add Script","a"],
+        ["edit_script","Edit Script","e"],
+        ["del_script","Delete Script","d"],
     ],
     "back_option": True,
     "back_to": "main"
@@ -30,11 +30,11 @@ analysis_menu = {
     "menu": "Analysis Menu",
     "name": "analysis",
     "options": [
-        {M_CMD: "status", M_PROMPT: "Today's Status", M_HOTKEY: "t"},
-        {M_CMD: "list_hold", M_PROMPT: "List Holdings", M_HOTKEY: "l"},
-        {M_CMD: "ledger", M_PROMPT: "Script Ledger", M_HOTKEY: "a"},
-        {M_CMD: "perf", M_PROMPT: "Script Performance", M_HOTKEY: "p"},
-        {M_CMD: "chart", M_PROMPT: "Script Chart", M_HOTKEY: "c"},
+        ["status","Today's Status","t"],
+        ["list_hold","List Holdings","l"],
+        ["ledger","Script Ledger","a"],
+        ["perf","Script Performance","p"],
+        ["chart","Script Chart","c"],
     ],
     "back_option": True,
     "back_to": "main"
@@ -44,8 +44,8 @@ transactions_menu = {
     "menu": "Transactions Menu",
     "name": "transactions",
     "options": [
-        {M_CMD: "buy", M_PROMPT: "Buy Entry", M_HOTKEY: "b"},
-        {M_CMD: "sell", M_PROMPT: "Sell Entry", M_HOTKEY: "s"},
+        ["buy","Buy Entry","b"],
+        ["sell","Sell Entry","s"],
     ],
     "back_option": True,
     "back_to": "main"
