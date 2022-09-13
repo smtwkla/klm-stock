@@ -1,3 +1,5 @@
+import pprint
+
 M_CMD = "cmd"
 M_PROMPT = "prompt"
 M_HOTKEY = "hotkey"
@@ -60,7 +62,8 @@ def get_menu_input(menu):
     return action
 
 
-def present_menu(menu, menu_system):
+def present_menu(menu_to_present, menu_system):
+    menu = menu_system[menu_to_present]
     while menu is not None:
         display_menu(menu)
         act = get_menu_input(menu)
@@ -105,3 +108,13 @@ def get_menu_cmd(menu, inp):
         if inp == len(options)+1 and menu["back_option"]:
             return "menu:"+menu["back_to"]
         return options[inp-1][M_CMD]
+
+
+def generate_menu_system(*menus):
+    """ Generates Menu system dictionary from list of menus given as arguments """
+    menu_sys = {}
+    for menu in menus:
+        menu_name = menu["name"]
+        menu_sys[menu_name] = menu
+    return menu_sys
+    # return {i["name"]: i for i in menus}

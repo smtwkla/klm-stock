@@ -3,15 +3,16 @@ import secrets
 import menu_def
 import scripts
 
-menu = menu_def.main_menu
+menu_name = "main"
 
-while menu:
-    cmd, menu_name = klm_menu.present_menu(menu, menu_def.menu_system)
-    menu = menu_def.menu_system[menu_name]
+while menu_name:
+    cmd, menu_name = klm_menu.present_menu(menu_name, menu_def.menu_system)
     if cmd == "exit":
-        menu = None
+        menu_name = None
         continue
+
     # execute cmd
+    print("your command:"+cmd)
     if cmd == "list_scripts":
         scripts.list_scripts()
     elif cmd == "add_script":

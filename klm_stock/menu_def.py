@@ -1,4 +1,5 @@
-from klm_menu import M_CMD, M_PROMPT, M_HOTKEY
+from klm_menu import M_CMD, M_PROMPT, M_HOTKEY, generate_menu_system
+import pprint
 
 main_menu = {
     "menu": "Main Menu",
@@ -51,5 +52,4 @@ transactions_menu = {
 }
 
 
-menus = [main_menu, scripts_menu, analysis_menu, transactions_menu]
-menu_system = { x["name"]: x for x in menus }
+menu_system = generate_menu_system(main_menu, scripts_menu, analysis_menu, transactions_menu)
