@@ -1,5 +1,5 @@
 from klm_menu import M_CMD, M_PROMPT, M_HOTKEY, generate_menu_system
-import pprint
+
 
 main_menu = {
     "menu": "Main Menu",
@@ -9,7 +9,7 @@ main_menu = {
         ["menu:analysis", "Analysis...", "a"],
         ["menu:transactions", "Transactions...", "t"],
         ["ltp", "Fetch Last Traded Price", "l"],
-        ["exit","Exit App","x"],
+        ["exit", "Exit App", "x"],
     ],
     "back_option": False
 }

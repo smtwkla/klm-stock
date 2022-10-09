@@ -1,5 +1,3 @@
-import pprint
-
 import scripts
 import os
 import pymysql
@@ -8,11 +6,6 @@ from klm_menu import print_banner
 
 
 def calc_total_holding_amt():
-    """
-    Calculates total value of total holdings, as per last traded price.
-    Used to calculate %
-    :return: float
-    """
 
     cmd = "SELECT sum(ts.qty * ltp.ltp) as amt" \
           " FROM transactions AS ts LEFT JOIN scripts AS scr ON scr.id = ts.script_id " \
@@ -21,6 +14,13 @@ def calc_total_holding_amt():
     cur.execute(cmd)
     rec = cur.fetchone()
     return rec["amt"]
+
+
+"""
+Calculates total value of total holdings, as per last traded price.
+Used to calculate %
+:return: float
+"""
 
 
 def print_holdings():

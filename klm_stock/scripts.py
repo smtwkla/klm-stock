@@ -6,12 +6,13 @@ import sectors
 MIN_SCRIPT_NAME_LEN = 3     # Allowed min chars in a script name.
 MIN_SCRIPT_CODE_LEN = 3
 
+
 def list_scripts():
     """
     Prints list of all scripts in scripts table
     :return: None
     """
-    cur:pymysql.cursors.Cursor = db_functions.dbc.cursor()
+    cur: pymysql.cursors.Cursor = db_functions.dbc.cursor()
     sql = "SELECT id, script_code, script_name, sector_code FROM scripts ORDER BY script_code;"
     cur.execute(sql)
     res = cur.fetchall()
@@ -135,7 +136,7 @@ def db_get_script_id(*, script_code):
         return res[0]
 
 
-def input_script_code(*,check_exiting=False, prompt=None):
+def input_script_code(*, check_exiting=False, prompt=None):
     """
     Gets script code as input from user.
     Returns script code if valid, None if invalid input given.

@@ -8,7 +8,7 @@ from klm_menu import print_banner
 def add_transaction(*, is_buy=True):
     """
     Inputs data and inserts new transaction entry.
-    :param is_buy: Is buy transaction if True, else sell
+    param is_buy: Is buy transaction if True, else sell
     :return: None
     """
     scr_code = scripts.input_script_code(check_exiting=True)
@@ -65,7 +65,7 @@ def print_script_ledger():
         tr_price = rec[4]
         tr_amt = tr_price * qty * (-1 if buy else 1)
         amt_tot += tr_amt
-        print(f"{line_count:3} | {tr_date} | {tr_type:4} | {qty if buy else '':6} | {qty if sell else '':6} | " \
+        print(f"{line_count:3} | {tr_date} | {tr_type:4} | {qty if buy else '':6} | {qty if sell else '':6} | " 
               f"{tr_price:8.2f} | {tr_amt:12.2f} |")
         line_count += 1
     else:

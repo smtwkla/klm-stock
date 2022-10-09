@@ -11,9 +11,9 @@ def connect_db(db_settings) -> pymysql.connections.Connection:
     """
     print(f"Connecting to DB...")
     myc = mysql.connect(host=db_settings["host"],
-                user=db_settings["user"],
-                password=db_settings["password"],
-                db=db_settings["db"])
+                        user=db_settings["user"],
+                        password=db_settings["password"],
+                        db=db_settings["db"])
     return myc
 
 

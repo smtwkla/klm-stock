@@ -1,4 +1,3 @@
-import pprint
 
 M_CMD = 0
 M_PROMPT = 1
