@@ -1,7 +1,13 @@
+import pymysql
 import klm_menu
-import secrets
-import menu_def
+
+import db_functions
 import scripts
+import sectors
+
+import app_secrets
+import menu_def
+
 
 menu_name = "main"
 
@@ -21,3 +27,5 @@ while menu_name:
         scripts.edit_script()
     elif cmd == "del_script":
         scripts.del_script()
+    elif cmd == "list_sectors":
+        sectors.list_sectors()
