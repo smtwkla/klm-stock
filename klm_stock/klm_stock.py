@@ -1,12 +1,11 @@
-import pymysql
 import klm_menu
 
-import db_functions
 import scripts
 import sectors
 import transactions
+import portfolio
+import ltp
 
-import app_secrets
 import menu_def
 
 
@@ -31,12 +30,19 @@ while menu_name:
     elif cmd == "list_sectors":
         sectors.list_sectors()
     elif cmd == "buy":
-        transactions.add_trasaction(is_buy=True)
+        transactions.add_transaction(is_buy=True)
     elif cmd == "sell":
-        transactions.add_trasaction(is_buy=False)
+        transactions.add_transaction(is_buy=False)
     elif cmd == "ledger":
         transactions.print_script_ledger()
     elif cmd == "list_hold":
-        transactions.print_holdings()
+        portfolio.print_holdings()
     elif cmd == "sector":
-        transactions.print_sector_holdings()
+        portfolio.print_sector_holdings()
+    elif cmd == "ltp":
+        ltp.update_all_ltp()
+        print("Updated.")
+    elif cmd == "perf":
+        portfolio.perf()
+    elif cmd == "chart":
+        portfolio.chart()

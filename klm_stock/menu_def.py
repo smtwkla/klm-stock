@@ -8,6 +8,7 @@ main_menu = {
         ["menu:scripts", "Manage Scripts...", "s"],
         ["menu:analysis", "Analysis...", "a"],
         ["menu:transactions", "Transactions...", "t"],
+        ["ltp", "Fetch Last Traded Price", "l"],
         ["exit","Exit App","x"],
     ],
     "back_option": False

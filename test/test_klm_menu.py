@@ -1,7 +1,8 @@
 import klm_stock.klm_menu
 
-test_main_menu = {
+def func1(*args):
+    print(args[2])
 
-}
+func1(1,2,3,4,6)
 
-klm_stock.klm_menu.display_menu(test_main_menu)
+
