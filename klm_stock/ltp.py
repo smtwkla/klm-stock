@@ -13,7 +13,8 @@ def update_ltp(*, script_id, ltp, insert=False):
     """
     ts = datetime.datetime.now()
     if insert:
-        cmd = "INSERT INTO ltp (script_id, update_ts, ltp) VALUE (%s, %s, %s)"
+        cmd = "INSERT INTO ltp (script_id, update_ts, ltp) " \
+              " VALUE (%s, %s, %s)"
         val = (script_id, ts, ltp)
     else:
         cmd = "UPDATE ltp SET ltp=%s, update_ts=%s WHERE script_id=%s"
@@ -28,7 +29,8 @@ def update_all_ltp():
     Updates price of all scripts in the scripts table
     :return: None
     """
-    cmd = "SELECT scripts.id, l.ltp FROM scripts LEFT JOIN ltp l on scripts.id = l.script_id;"
+    cmd = "SELECT scripts.id, l.ltp FROM scripts " \
+          " LEFT JOIN ltp l on scripts.id = l.script_id;"
     cur = db_functions.dbc.cursor()
     cur.execute(cmd)
     for i in cur:

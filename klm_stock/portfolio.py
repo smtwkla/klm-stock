@@ -8,7 +8,8 @@ from klm_menu import print_banner
 def calc_total_holding_amt():
 
     cmd = "SELECT sum(ts.qty * ltp.ltp) as amt" \
-          " FROM transactions AS ts LEFT JOIN scripts AS scr ON scr.id = ts.script_id " \
+          " FROM transactions AS ts LEFT JOIN scripts AS scr ON " \
+          " scr.id = ts.script_id " \
           " LEFT JOIN ltp ON scr.id = ltp.script_id"
     cur = db_functions.dbc.cursor(pymysql.cursors.DictCursor)
     cur.execute(cmd)
@@ -30,7 +31,8 @@ def print_holdings():
     """
     HOLDING_WIDTH = 99
 
-    cmd = "SELECT ts.script_id, scr.script_code, scr.script_name, scr.sector_code, sum(ts.qty) as qty, ltp.ltp" \
+    cmd = "SELECT ts.script_id, scr.script_code, scr.script_name," \
+          " scr.sector_code, sum(ts.qty) as qty, ltp.ltp" \
           " FROM transactions AS ts LEFT JOIN scripts AS scr ON scr.id = ts.script_id " \
           " LEFT JOIN ltp ON scr.id = ltp.script_id" \
           " GROUP BY scr.script_code ORDER BY scr.script_code;"
@@ -40,15 +42,16 @@ def print_holdings():
     i = 1
     total = calc_total_holding_amt()
     print("-" * HOLDING_WIDTH)
-    print(f'{"":3} | {"Code":10} | {"Script Name":25} | {"Sector":10} | {"Qty":6} | {"LTP":8} | {"Value@LTP":10} | '
-          f'{"%":4} |')
+    print(f'{"":3} | {"Code":10} | {"Script Name":25} | {"Sector":10} |'
+          f' {"Qty":6} | {"LTP":8} | {"Value@LTP":10} | {"%":4} |')
     print("-" * HOLDING_WIDTH)
 
     for rec in cur:
         price = rec['ltp'] or 0
         amt = price * rec['qty']
         percent = round(amt / total * 100, 1)
-        print(f'{i:3} | {rec["script_code"]:10} | {rec["script_name"]:25} | {rec["sector_code"]:10} | {rec["qty"]:6} | '
+        print(f'{i:3} | {rec["script_code"]:10} | {rec["script_name"]:25} |'
+              f' {rec["sector_code"]:10} | {rec["qty"]:6} | '
               f'{price:8.2f} | {amt:10.2f} | {percent:5.1f}')
         i += 1
     print("-" * HOLDING_WIDTH)
@@ -62,8 +65,10 @@ def print_sector_holdings():
     """
     SEC_WIDTH = 69
 
-    cmd = "SELECT scr.sector_code, sum(ts.qty * ltp.ltp) as amt, sectors.full_name" \
-          " FROM transactions AS ts LEFT JOIN scripts AS scr ON scr.id = ts.script_id " \
+    cmd = "SELECT scr.sector_code, sum(ts.qty * ltp.ltp) as amt, " \
+          " sectors.full_name" \
+          " FROM transactions AS ts LEFT JOIN scripts AS scr " \
+          " ON scr.id = ts.script_id " \
           " LEFT JOIN ltp ON scr.id = ltp.script_id" \
           " LEFT JOIN sectors on scr.sector_code = sectors.code" \
           " GROUP BY scr.sector_code ORDER BY scr.sector_code;"
@@ -74,12 +79,14 @@ def print_sector_holdings():
     tot_amt = calc_total_holding_amt()
 
     print("-" * SEC_WIDTH)
-    print(f'{"":3} | {"Code":10} | {"Sector":25} | {"Amount":10} | {"Percent":6} |')
+    print(f'{"":3} | {"Code":10} | {"Sector":25} | {"Amount":10} |'
+          f' {"Percent":6} |')
     print("-" * SEC_WIDTH)
     for rec in cur:
         amt = rec["amt"] if rec["amt"] else 0
         percent = round(amt / tot_amt * 100, 1)
-        print(f'{i:3} | {rec["sector_code"]:10} | {rec["full_name"]:25} | {amt:10.2f} | {percent:6.2f}% |')
+        print(f'{i:3} | {rec["sector_code"]:10} | {rec["full_name"]:25} |'
+              f' {amt:10.2f} | {percent:6.2f}% |')
         i += 1
     print("-" * SEC_WIDTH)
     print("Total Value of Holdings @ LTP:", tot_amt)
@@ -87,7 +94,8 @@ def print_sector_holdings():
 
 def perf():
     """
-    Inputs script code (existing) and shows performance data of the investment
+    Inputs script code (existing) and shows performance
+     data of the investment
     :return: None
     """
     print_banner('Investment Analysis')
@@ -104,7 +112,8 @@ def perf():
     res = cur.fetchone()
     qty = res[0]
 
-    print(f'Total of {qty or 0} numbers of script {scr_code} is available.')
+    print(f'Total of {qty or 0} numbers of script'
+          f' {scr_code} is available.')
     if not qty or qty < 0:
         return
 
@@ -114,13 +123,17 @@ def perf():
     cur = db_functions.dbc.cursor()
     cur.execute(cmd, val)
     res = cur.fetchone()
-    ltp = res[0]
+    ltp = res[0] if res else 0
 
-    # find purchase history of the share, to calculate average purchase price
+    # find purchase history of the share,
+    # to calculate average purchase price
     bal_qty = qty
     price_list = []
-    cmd = "SELECT t.script_id, t.date_of_trans, t.qty, t.price FROM transactions t " \
-          " WHERE t.script_id=%s AND t.qty > 0 ORDER BY t.date_of_trans DESC"
+    cmd = "SELECT t.script_id, t.date_of_trans, t.qty, t.price" \
+          " FROM transactions t " \
+          " WHERE t.script_id=%s AND t.qty > 0 " \
+          " ORDER BY t.date_of_trans DESC"
+
     val = (scr_id,)
     cur.execute(cmd, val)
     for rec in cur:
@@ -152,11 +165,14 @@ def perf():
 
 def chart():
     """
-    Inputs script code (even non-existing in table) and opens NSE website page with details
+    Inputs script code (even non-existing in table) and
+    opens NSE website page with details
     about the script
     :return: None
     """
     scr_code = scripts.input_script_code(check_exiting=False)
     if scr_code is None:
         return
-    os.system("start \"\" https://www.nseindia.com/get-quotes/equity?symbol="+scr_code)
+    os.system(
+        "start \"\" https://www.nseindia.com/get-quotes/equity?symbol="
+        +scr_code)

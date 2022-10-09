@@ -27,7 +27,8 @@ def display_menu(menu_dict):
         print(f"{index}. {i[M_PROMPT]} ({i[M_HOTKEY]})")
         index += 1
     if menu_dict["back_option"]:
-        print(f"{index}. {back_option[M_PROMPT]} ({back_option[M_HOTKEY]})")
+        print(f"{index}. {back_option[M_PROMPT]} "
+              f"({back_option[M_HOTKEY]})")
 
 
 def get_menu_input(menu):
@@ -107,10 +108,10 @@ def get_menu_cmd(menu, inp):
 
 
 def generate_menu_system(*menus):
-    """ Generates Menu system dictionary from list of menus given as arguments """
+    """ Generates Menu system dictionary from
+     list of menus given as arguments """
     menu_sys = {}
     for menu in menus:
         menu_name = menu["name"]
         menu_sys[menu_name] = menu
     return menu_sys
-    # return {i["name"]: i for i in menus}

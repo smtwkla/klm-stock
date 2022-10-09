@@ -38,11 +38,12 @@ def get_sector_full_name(*, code):
 def input_sector_code(*, prompt=None, check_exiting=False):
     """
     Gets a sector code as input from user
-    :param prompt: text to display to user. Defaults to "Enter Sector Code:"
-    :param check_exiting: if yes, checks if record already exists for the code
+    :param prompt: text to display to user. Default:"Enter Sector Code:"
+    :param check_exiting: if yes, checks if code exists
     :return: sector code that was input by user
     """
-    prompt_str = ("Enter Sector Code" if prompt is None else prompt) + ": "
+    prompt_str = ("Enter Sector Code" if prompt is None
+                  else prompt) + ": "
     sec_code = input(prompt_str)
     sec_code = sec_code.strip().upper()
     if check_exiting:
