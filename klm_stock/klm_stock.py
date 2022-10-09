@@ -36,3 +36,7 @@ while menu_name:
         transactions.add_trasaction(is_buy=False)
     elif cmd == "ledger":
         transactions.print_script_ledger()
+    elif cmd == "list_hold":
+        transactions.print_holdings()
+    elif cmd == "sector":
+        transactions.print_sector_holdings()

@@ -24,6 +24,7 @@ def add_trasaction(*, is_buy=True):
 
 
 def print_script_ledger():
+    LED_WIDTH = 70
     scr_code = scripts.input_script_code(check_exiting=True)
     scr_id = scripts.db_get_script_id(script_code=scr_code)
     cmd = "SELECT ts.id, ts.script_id, ts.date_of_trans, ts.qty, ts.price, scr.script_name "\
@@ -36,8 +37,10 @@ def print_script_ledger():
     print_banner("Ledger of " + scr_code, star="-")
     buy_tot = sell_tot = amt_tot = 0
     line_count = 1
+    print("-" * LED_WIDTH)
     line = f"{'#':3} | {'Date':^10} | {'Type':4} | {'Buy':6} | {'Sell':6} | {'Price':8} | {'Amount':12} |"
     print(line)
+    print("-" * LED_WIDTH)
     for rec in cur:
         buy = True if rec[3] > 0 else False
         sell = not buy
@@ -53,9 +56,10 @@ def print_script_ledger():
         print(line)
         line_count += 1
     else:
-        print("-" * 60)
+        print("-" * LED_WIDTH)
         line = f"{'':3} | {'Totals:':10} | {'    '} | {buy_tot:6} | {sell_tot:6} | {' ':8} | {amt_tot:12.2f} |"
         print(line)
+        print("-" * LED_WIDTH)
 
 
 def calc_total_holding_amt():
@@ -70,7 +74,7 @@ def calc_total_holding_amt():
 
 
 def print_holdings():
-
+    HOLDING_WIDTH = 99
     cmd = "SELECT ts.script_id, scr.script_code, scr.script_name, scr.sector_code, sum(ts.qty) as qty, ltp.ltp" \
             " FROM transactions AS ts LEFT JOIN scripts AS scr ON scr.id = ts.script_id " \
             " LEFT JOIN ltp ON scr.id = ltp.script_id" \
@@ -78,11 +82,14 @@ def print_holdings():
     cur = db_functions.dbc.cursor(pymysql.cursors.DictCursor)
     cur.execute(cmd)
     i = 1
-    l = f'{"":3} | {"Code":10} | {"Script Name":25} | {"Sector":10} | {"Qty":6} | {"Price":8} | {"Amount":10} | ' \
-        f'{"%":4} |'
-    print(l)
-    print("-" * 100)
     total = calc_total_holding_amt()
+
+    l = f'{"":3} | {"Code":10} | {"Script Name":25} | {"Sector":10} | {"Qty":6} | {"LTP":8} | {"Value@LTP":10} | ' \
+        f'{"%":4} |'
+    print("-" * HOLDING_WIDTH)
+    print(l)
+    print("-" * HOLDING_WIDTH)
+
     for rec in cur:
         price = rec['ltp'] or 0
         amt = price * rec['qty']
@@ -91,12 +98,12 @@ def print_holdings():
             f'{price:8.2f} | {amt:10.2f} | {percent:5.1f}'
         print(l)
         i += 1
-    print("-" * 100)
-    print("Total Holdings:", total)
+    print("-" * HOLDING_WIDTH)
+    print("Total Value of Holdings @ LTP:", total)
 
 
 def print_sector_holdings():
-
+    SEC_WIDTH = 69
     cmd = "SELECT scr.sector_code, sum(ts.qty * ltp.ltp) as amt, sectors.full_name" \
             " FROM transactions AS ts LEFT JOIN scripts AS scr ON scr.id = ts.script_id " \
             " LEFT JOIN ltp ON scr.id = ltp.script_id" \
@@ -106,15 +113,17 @@ def print_sector_holdings():
     cur = db_functions.dbc.cursor(pymysql.cursors.DictCursor)
     cur.execute(cmd)
     i = 1
+    tot_amt = calc_total_holding_amt()
+
+    print("-" * SEC_WIDTH)
     l = f'{"":3} | {"Code":10} | {"Sector":25} | {"Amount":10} | {"Percent":6} |'
     print(l)
-    print("-" * 65)
-    tot_amt = calc_total_holding_amt()
+    print("-" * SEC_WIDTH)
     for rec in cur:
         amt = rec["amt"] if rec["amt"] else 0
         percent= round(amt / tot_amt * 100, 1)
-        l = f'{i:3} | {rec["sector_code"]:10} | {rec["full_name"]:25} | {amt:10.2f} | {percent:6.2f}%'
+        l = f'{i:3} | {rec["sector_code"]:10} | {rec["full_name"]:25} | {amt:10.2f} | {percent:6.2f}% |'
         print(l)
         i += 1
-    print("-" * 65)
+    print("-" * SEC_WIDTH)
     print("Total Holdings:", tot_amt)

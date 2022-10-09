@@ -31,8 +31,8 @@ analysis_menu = {
     "menu": "Analysis Menu",
     "name": "analysis",
     "options": [
-        {M_CMD: "status", M_PROMPT: "Today's Status", M_HOTKEY: "t"},
-        {M_CMD: "list_hold", M_PROMPT: "List Holdings", M_HOTKEY: "l"},
+        {M_CMD: "sector", M_PROMPT: "Sector-wise Holdings", M_HOTKEY: "s"},
+        {M_CMD: "list_hold", M_PROMPT: "List All Holdings", M_HOTKEY: "l"},
         {M_CMD: "ledger", M_PROMPT: "Script Ledger", M_HOTKEY: "a"},
         {M_CMD: "perf", M_PROMPT: "Script Performance", M_HOTKEY: "p"},
         {M_CMD: "chart", M_PROMPT: "Script Chart", M_HOTKEY: "c"},
