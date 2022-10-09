@@ -36,7 +36,7 @@ analysis_menu = {
         {M_CMD: "list_hold", M_PROMPT: "List All Holdings", M_HOTKEY: "l"},
         {M_CMD: "ledger", M_PROMPT: "Script Ledger", M_HOTKEY: "a"},
         {M_CMD: "perf", M_PROMPT: "Script Performance", M_HOTKEY: "p"},
-        {M_CMD: "chart", M_PROMPT: "Script Chart", M_HOTKEY: "c"},
+        {M_CMD: "details", M_PROMPT: "Script Details on NSE", M_HOTKEY: "d"},
     ],
     "back_option": True,
     "back_to": "main"

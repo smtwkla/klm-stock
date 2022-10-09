@@ -44,5 +44,5 @@ while menu_name:
         print("Updated.")
     elif cmd == "perf":
         portfolio.perf()
-    elif cmd == "chart":
+    elif cmd == "details":
         portfolio.chart()
