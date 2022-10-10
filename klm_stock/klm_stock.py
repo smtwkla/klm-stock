@@ -5,6 +5,7 @@ import sectors
 import transactions
 import portfolio
 import ltp
+import db_setup
 
 import menu_def
 
@@ -46,3 +47,5 @@ while menu_name:
         portfolio.perf()
     elif cmd == "details":
         portfolio.chart()
+    elif cmd == "setup":
+        db_setup.setup()

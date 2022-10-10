@@ -22,7 +22,8 @@ scripts_menu = {
         {M_CMD: "add_script", M_PROMPT: "Add Script", M_HOTKEY: "a"},
         {M_CMD: "edit_script", M_PROMPT: "Edit Script", M_HOTKEY: "e"},
         {M_CMD: "del_script", M_PROMPT: "Delete Script", M_HOTKEY: "d"},
-        {M_CMD: "list_sectors", M_PROMPT: "List Sectors", M_HOTKEY: "s"}
+        {M_CMD: "list_sectors", M_PROMPT: "List Sectors", M_HOTKEY: "s"},
+        {M_CMD: "setup", M_PROMPT: "Initialise Database", M_HOTKEY: "i"}
     ],
     "back_option": True,
     "back_to": "main"
