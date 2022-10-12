@@ -41,6 +41,11 @@ def print_holdings():
 
     i = 1
     total = calc_total_holding_amt()
+
+    if not total:
+        print("No holdings / No LTP data to list.")
+        return
+
     print("-" * HOLDING_WIDTH)
     print(f'{"":3} | {"Code":10} | {"Script Name":25} | {"Sector":10} |'
           f' {"Qty":6} | {"LTP":8} | {"Value@LTP":10} | {"%":4} |')
@@ -50,7 +55,7 @@ def print_holdings():
         price = rec['ltp'] or 0
         amt = price * rec['qty']
         percent = round(amt / total * 100, 1)
-        print(f'{i:3} | {rec["script_code"]:10} | {rec["script_name"]:25} |'
+        print(f'{i:3} | {rec["script_code"]:10} | {rec["script_name"][0:25]:25} |'
               f' {rec["sector_code"]:10} | {rec["qty"]:6} | '
               f'{price:8.2f} | {amt:10.2f} | {percent:5.1f}')
         i += 1
@@ -63,7 +68,7 @@ def print_sector_holdings():
     Print sector-wise summary of holdings.
     :return: None
     """
-    SEC_WIDTH = 69
+    SEC_WIDTH = 79
 
     cmd = "SELECT scr.sector_code, sum(ts.qty * ltp.ltp) as amt, " \
           " sectors.full_name" \
@@ -79,13 +84,13 @@ def print_sector_holdings():
     tot_amt = calc_total_holding_amt()
 
     print("-" * SEC_WIDTH)
-    print(f'{"":3} | {"Code":10} | {"Sector":25} | {"Amount":10} |'
+    print(f'{"":3} | {"Code":10} | {"Sector":35} | {"Amount":10} |'
           f' {"Percent":6} |')
     print("-" * SEC_WIDTH)
     for rec in cur:
         amt = rec["amt"] if rec["amt"] else 0
         percent = round(amt / tot_amt * 100, 1)
-        print(f'{i:3} | {rec["sector_code"]:10} | {rec["full_name"]:25} |'
+        print(f'{i:3} | {rec["sector_code"]:10} | {rec["full_name"]:35} |'
               f' {amt:10.2f} | {percent:6.2f}% |')
         i += 1
     print("-" * SEC_WIDTH)
@@ -158,6 +163,7 @@ def perf():
 
     print(f"Average purchase price     : {avg:12.2f}")
     print(f"Purchase investment        : {amt:12.2f}")
+    print(f"LTP                        : {ltp:12.2f}")
     print(f"Value at LTP               : {val_ltp:12.2f}")
     print(f"Net Gain / Loss            : {net_gl:12.2f}")
     print(f"% Gain / Loss              : {per_gl:11.2f}%")
