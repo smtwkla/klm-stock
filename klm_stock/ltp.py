@@ -13,11 +13,11 @@ def update_ltp(*, script_id, ltp, insert=False):
     """
     ts = datetime.datetime.now()
     if insert:
-        cmd = "INSERT INTO ltp (script_id, update_ts, ltp) " \
+        cmd = "INSERT INTO ltp (script_id, ts, ltp) " \
               " VALUE (%s, %s, %s)"
         val = (script_id, ts, ltp)
     else:
-        cmd = "UPDATE ltp SET ltp=%s, update_ts=%s WHERE script_id=%s"
+        cmd = "UPDATE ltp SET ltp=%s, ts=%s WHERE script_id=%s"
         val = (ltp, ts, script_id)
     cur = db_functions.dbc.cursor()
     cur.execute(cmd, val)
