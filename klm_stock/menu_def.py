@@ -55,4 +55,10 @@ transactions_menu = {
 }
 
 
-menu_system = generate_menu_system(main_menu, scripts_menu, analysis_menu, transactions_menu)
+menu_system = {
+                "main": main_menu,
+                "scripts": scripts_menu,
+                "analysis": analysis_menu,
+                "transactions": transactions_menu
+               }
+
