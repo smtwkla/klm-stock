@@ -1,4 +1,4 @@
-from klm_menu import M_CMD, M_PROMPT, M_HOTKEY, generate_menu_system
+from klm_menu import M_CMD, M_PROMPT, M_HOTKEY
 
 
 main_menu = {
