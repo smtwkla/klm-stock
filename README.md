@@ -1,6 +1,8 @@
 # klm-stock
 Portfolio Management Software
 
+# Instructions : app_secrets.py must contain the hostname, username, password, db name of database. app_secrets_example.py can be downloaded and renmed to app_secrets.py and then edited with correct connection information.
+
 ## Requirements:
 - Virtual Environment: venv
 - Python Version: 3.10
