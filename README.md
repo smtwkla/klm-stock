@@ -2,10 +2,13 @@
 Portfolio Management Software
 
 # Important Instructions by KLM_Stock Team: 
-### db connection details:
+### 1. Download all .py files from GitHub. 
+Alternatively, download the following files for full installation: app_secrets_example.py, db_functions.py, db_setup.py, klm_menu.py, klm_stock.py, ltp.py, menu_def.py, portfolio.py, scripts.py, sectors.py, transactions.py
+
+### 2. db connection details:
 **app_secrets.py** must contain the hostname, username, password, db name of database. **app_secrets_example.py** can be downloaded and renamed to **app_secrets.py** and then edited with correct connection information.
-### db_functions_mypy.py 
-For using mysql python connector, delete existing **db_functions.py** and rename **db_functions_mypy.py** as **db_functions.py**
+
+### 3. Run klm_stock.py. Menu > Manage Scripts > Initilaise Database to create tables and load test data
 
 ## Requirements:
 - Virtual Environment: venv
