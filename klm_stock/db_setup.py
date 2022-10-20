@@ -105,7 +105,7 @@ def create_test_scripts():
 
 
 def delete_tables():
-    cur = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
     table_list = ["transactions", "ltp", "scripts", "sectors"]
     for table in table_list:
         cmd = "DROP TABLE IF EXISTS " + table + ";"
@@ -157,7 +157,7 @@ def create_test_transactions():
              ['THERMAX', '2012-05-10', 150, 1300],
              ['INDHOTEL', '2019-05-10', 250, 325],
              ]
-    cur = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
     cmd = "INSERT INTO transactions " \
           "(script_id, date_of_trans, qty, price) " \
           "VALUE (%s, %s, %s, %s);"
@@ -194,7 +194,7 @@ def create_ltp():
         ['THERMAX', 2454],
         ['INDHOTEL', 334]
     ]
-    cur = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
     cmd = "INSERT INTO ltp (script_id, ts, ltp) " \
           " VALUE (%s, %s, %s)"
     ts = datetime.datetime.now()

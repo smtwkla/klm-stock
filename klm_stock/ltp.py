@@ -19,7 +19,7 @@ def update_ltp(*, script_id, ltp, insert=False):
     else:
         cmd = "UPDATE ltp SET ltp=%s, ts=%s WHERE script_id=%s"
         val = (ltp, ts, script_id)
-    cur = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
     cur.execute(cmd, val)
     db_functions.dbc.commit()
 
@@ -31,7 +31,7 @@ def update_all_ltp():
     """
     cmd = "SELECT scripts.id, l.ltp FROM scripts " \
           " LEFT JOIN ltp l on scripts.id = l.script_id;"
-    cur = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
     cur.execute(cmd)
     for i in cur:
         is_new_rec = i[1] is None

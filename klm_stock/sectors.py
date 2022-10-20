@@ -8,7 +8,7 @@ def list_sectors():
     List all sectors in sector table
     :return: None
     """
-    cur = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
     cur.execute("SELECT code, full_name FROM sectors;")
     res = cur.fetchall()
     i = 1
@@ -24,7 +24,7 @@ def get_sector_full_name(*, code):
     :param code: sector code str to search for
     :return: sector full name (str)
     """
-    cur = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
     cmd = "SELECT full_name FROM sectors WHERE code=%s"
     val = (code,)
     cur.execute(cmd, val)

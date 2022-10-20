@@ -1,5 +1,3 @@
-import pymysql
-
 import scripts
 import db_functions
 from klm_menu import print_banner
@@ -33,7 +31,7 @@ def add_transaction(*, is_buy=True):
     try:
         cur.execute(cmd, val)
         db_functions.dbc.commit()
-    except pymysql.Error as e:
+    except db_functions.mysql.Error as e:
         print("Error inserting transaction: ", e)
 
 
@@ -55,7 +53,7 @@ def print_script_ledger():
           " ORDER BY ts.date_of_trans"
 
     val = (scr_id,)
-    cur = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
     cur.execute(cmd, val)
 
     line_count = 1

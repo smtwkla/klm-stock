@@ -1,6 +1,7 @@
+import pprint
+
 import scripts
 import os
-import pymysql
 import db_functions
 from klm_menu import print_banner
 
@@ -11,7 +12,7 @@ def calc_total_holding_amt():
           " FROM transactions AS ts LEFT JOIN scripts AS scr ON " \
           " scr.id = ts.script_id " \
           " LEFT JOIN ltp ON scr.id = ltp.script_id"
-    cur = db_functions.dbc.cursor(pymysql.cursors.DictCursor)
+    cur = db_functions.get_cursor(dictionary=True)
     cur.execute(cmd)
     rec = cur.fetchone()
     return rec["amt"]
@@ -36,7 +37,7 @@ def print_holdings():
           " FROM transactions AS ts LEFT JOIN scripts AS scr ON scr.id = ts.script_id " \
           " LEFT JOIN ltp ON scr.id = ltp.script_id" \
           " GROUP BY scr.script_code ORDER BY scr.script_code;"
-    cur = db_functions.dbc.cursor(pymysql.cursors.DictCursor)
+    cur = db_functions.get_cursor(dictionary=True)
     cur.execute(cmd)
 
     i = 1
@@ -77,7 +78,7 @@ def print_sector_holdings():
           " LEFT JOIN ltp ON scr.id = ltp.script_id" \
           " LEFT JOIN sectors on scr.sector_code = sectors.code" \
           " GROUP BY scr.sector_code ORDER BY scr.sector_code;"
-    cur = db_functions.dbc.cursor(pymysql.cursors.DictCursor)
+    cur = db_functions.get_cursor(dictionary=True)
     cur.execute(cmd)
 
     i = 1
@@ -112,7 +113,7 @@ def perf():
     # find how many stock qty is at hand
     cmd = "SELECT SUM(qty) FROM transactions t WHERE t.script_id=%s"
     val = (scr_id,)
-    cur = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
     cur.execute(cmd, val)
     res = cur.fetchone()
     qty = res[0]
@@ -125,7 +126,7 @@ def perf():
     # find LTP for the script
     cmd = "SELECT ltp FROM ltp WHERE ltp.script_id=%s"
     val = (scr_id,)
-    cur = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
     cur.execute(cmd, val)
     res = cur.fetchone()
     ltp = res[0] if res else 0

@@ -1,4 +1,3 @@
-import pymysql
 from klm_menu import print_banner
 import db_functions
 import sectors
@@ -12,7 +11,7 @@ def list_scripts():
     Prints list of all scripts in scripts table
     :return: None
     """
-    cur: pymysql.cursors.Cursor = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
     sql = "SELECT id, script_code, script_name, sector_code " \
           "FROM scripts ORDER BY script_code;"
     cur.execute(sql)
@@ -51,13 +50,13 @@ def add_script():
     cmd = "INSERT INTO scripts (script_code, script_name, " \
           "sector_code) VALUE (%s, %s, %s)"
 
-    cur = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
     val = (scr_code, scr_name, sec_code)
 
     try:
         cur.execute(cmd, val)
         db_functions.dbc.commit()
-    except pymysql.Error as e:
+    except db_functions.mysql.Error as e:
         print("Error processing SQL command:")
         print(e)
 
@@ -88,13 +87,13 @@ def edit_script():
           " sector_code=%s WHERE id=%s"
 
     val = (scr_new_code, scr_name, sec_code, scr_id)
-    cur = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
 
     try:
         cur.execute(cmd, val)
         db_functions.dbc.commit()
 
-    except pymysql.Error as e:
+    except db_functions.mysql.Error as e:
         print("Error processing SQL command:")
         print(e)
 
@@ -112,7 +111,7 @@ def del_script():
           " LEFT JOIN scripts on t.script_id = scripts.id " \
           " WHERE scripts.script_code = %s;"
     val = (scr_code,)
-    cur = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
     cur.execute(cmd, val)
     rec_cnt = cur.fetchone()
 
@@ -121,13 +120,13 @@ def del_script():
         return
 
     cmd = "DELETE FROM scripts WHERE script_code=%s"
-    cur = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
 
     try:
         cur.execute(cmd, val)
         db_functions.dbc.commit()
 
-    except pymysql.Error as e:
+    except db_functions.mysql.Error as e:
         print("Error processing SQL command:")
         print(e)
 
@@ -138,7 +137,7 @@ def db_get_script_id(*, script_code):
     :param script_code: script_code to look up
     :return: script_id (int)
     """
-    cur = db_functions.dbc.cursor()
+    cur = db_functions.get_cursor()
     val = (script_code,)
     cur.execute("SELECT id FROM scripts WHERE script_code = %s", val)
     res = cur.fetchone()

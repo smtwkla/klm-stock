@@ -1,9 +1,8 @@
-import pymysql as mysql
-import pymysql.connections
+import mysql.connector as mysql
 from app_secrets import DB_SETTINGS
 
 
-def connect_db(db_settings) -> pymysql.connections.Connection:
+def connect_db(db_settings):
     """
     Connects to db as per settings dict given
     :param db_settings: dict, needs host, user, password, db keys
@@ -17,6 +16,16 @@ def connect_db(db_settings) -> pymysql.connections.Connection:
     return myc
 
 
-# global variable dbc with relevant type hints
+# global variable dbc
 # all modules import this, but connection happens once only
-dbc: pymysql.connections.Connection = connect_db(DB_SETTINGS)
+dbc = connect_db(DB_SETTINGS)
+
+
+def get_cursor(dictionary=False):
+
+    if dictionary:
+        cur = dbc.cursor(dictionary=True, buffered=True)
+    else:
+        cur = dbc.cursor()
+    cur.reset()
+    return cur
